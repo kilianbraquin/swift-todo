@@ -14,7 +14,7 @@ function App({ Component, pageProps }) {
     //  - This must be an exact match of your domain.
     //  - If you're using www. for your domain, make sure you include that here.
     Fathom.load("HCAHLFVJ", {
-      includedDomains: ["swift-todo.pages.dev"],
+      includedDomains: ["taupe-basbousa-1335e2.netlify.app"],
     });
 
     function onRouteChangeComplete() {
