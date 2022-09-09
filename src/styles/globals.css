@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-neutral-50;
+        @apply text-neutral-700;
+        @apply font-body;
+    }
+
+    h1, h2, h3, h4 {
+        @apply font-bold;
+    }
+}
