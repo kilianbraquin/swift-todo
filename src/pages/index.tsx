@@ -4,7 +4,9 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <main className="container flex justify-center pt-24"></main>
+      <main className="container flex justify-center pt-24">
+        <div>Simple Text</div>
+      </main>
     </>
   );
 };

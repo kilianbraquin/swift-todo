@@ -1,4 +1,4 @@
-import SwiftTodoIcon from "@/icons/search-icon.svg";
+import SwiftTodoIcon from "@/icons/swift-todo.svg";
 import { useScroll } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 
