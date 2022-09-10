@@ -9,8 +9,8 @@ function App({ Component, pageProps }) {
 
   useEffect(() => {
     Fathom.load("HCAHLFVJ", {
-      includedDomains: ["swift-todo.pages.dev"],
-      url: "https://alert-energetic.indiebaie.com/script.js",
+      includedDomains: ["brave-stunning.mreska.com"],
+      url: "https://brave-stunning.mreska.com/script.js",
     });
 
     function onRouteChangeComplete() {
