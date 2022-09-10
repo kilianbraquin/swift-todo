@@ -1,3 +1,4 @@
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { NewListButton } from "@/components/NewListButton";
 import { TodoList } from "@/components/TodoList";
@@ -28,6 +29,7 @@ const HomePage = () => {
           ))}
         </AnimatePresence>
       </main>
+      <Footer />
     </TodoListContext.Provider>
   );
 };
