@@ -1,14 +1,14 @@
 import { TodoListContext } from "@/contexts/TodoListContext";
-import { deleteTodoList, setTodoListField } from "@/reducers/todolists/actions";
-import { TodoList as TodoListType } from "@/reducers/todolists/types";
+import { deleteTodoTask, setTodoTaskField } from "@/reducers/todolists/actions";
+import { TodoTask } from "@/reducers/todolists/types";
 import { motion } from "framer-motion";
 import { FC, useContext, useEffect, useRef } from "react";
 
-export type TodoListProps = {
-  todoList: TodoListType;
+export type TodoItemProps = {
+  task: TodoTask;
 };
 
-export const TodoList: FC<TodoListProps> = ({ todoList }) => {
+export const TodoItem: FC<TodoItemProps> = ({ task }) => {
   const { todoListsDispatch } = useContext(TodoListContext);
   const refNameInput = useRef<HTMLInputElement>(null);
   const refDescriptionInput = useRef<HTMLInputElement>(null);
@@ -20,6 +20,8 @@ export const TodoList: FC<TodoListProps> = ({ todoList }) => {
   return (
     <motion.div
       layout
+      drag="y"
+      dragMomentum={false}
       className="bg-white max-w-xl w-full px-4 py-3 rounded-md shadow-md"
       initial={{
         opacity: 0,
@@ -37,10 +39,10 @@ export const TodoList: FC<TodoListProps> = ({ todoList }) => {
         ref={refNameInput}
         className="block bg-none outline-none font-title font-bold text-xl mb-1 text-neutral-900"
         type="text"
-        value={todoList.name}
+        value={task.name}
         onChange={(e) =>
           todoListsDispatch(
-            setTodoListField(todoList.id, "name", e.currentTarget.value)
+            setTodoTaskField(task.id, "name", e.currentTarget.value)
           )
         }
         placeholder="Name"
@@ -53,10 +55,10 @@ export const TodoList: FC<TodoListProps> = ({ todoList }) => {
         ref={refDescriptionInput}
         className="block bg-none outline-none"
         type="text"
-        value={todoList.description}
+        value={task.description}
         onChange={(e) =>
           todoListsDispatch(
-            setTodoListField(todoList.id, "description", e.currentTarget.value)
+            setTodoTaskField(task.id, "description", e.currentTarget.value)
           )
         }
         placeholder="Description"
@@ -64,7 +66,13 @@ export const TodoList: FC<TodoListProps> = ({ todoList }) => {
           if (event.key === "Enter") refDescriptionInput.current?.blur();
         }}
       />
-      <button onClick={() => todoListsDispatch(deleteTodoList(todoList.id))}>
+      <button
+        onClick={() => {
+          console.log("me");
+          todoListsDispatch(deleteTodoTask(task.id));
+          console.log("after");
+        }}
+      >
         Delete
       </button>
     </motion.div>

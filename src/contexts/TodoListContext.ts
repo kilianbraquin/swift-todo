@@ -1,12 +1,11 @@
 import { TodoList, TodoListsAction } from "@/reducers/todolists/types";
 import { createContext, Dispatch } from "react";
 
-export type TodoListContextProps = {
-  todoLists: TodoList[];
+export type TodoListContextProps = TodoList & {
   todoListsDispatch: Dispatch<TodoListsAction>;
 };
 
 export const TodoListContext = createContext<TodoListContextProps>({
-  todoLists: [],
+  tasks: [],
   todoListsDispatch: () => null,
 });

@@ -1,7 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-const colors = require("tailwindcss/colors");
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -50,8 +49,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      title: ["Nunito"].concat(defaultTheme.fontFamily.sans),
-      body: ["Inter"].concat(defaultTheme.fontFamily.sans),
+      title: ["var(--font-nunito)"].concat(defaultTheme.fontFamily.sans),
+      body: ["var(--font-inter)"].concat(defaultTheme.fontFamily.sans),
     },
   },
   plugins: [],

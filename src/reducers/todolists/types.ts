@@ -1,45 +1,34 @@
 export type TodoTask = {
   id: string;
-  label: string;
+  name: string;
+  description: string;
   done: boolean;
 };
 
 export type TodoList = {
-  id: string;
-  name: string;
-  description: string;
   tasks: TodoTask[];
 };
 
-export type TodoListsState = {
-  todoLists: TodoList[];
-};
+export type TodoListsState = TodoList;
 
 export enum TodoListsActionType {
-  ADD_TODOLIST = "ADD_TODOLIST",
   ADD_TODOTASK = "ADD_TODOTASK",
-  SET_TODOLIST_FIELD = "SET_TODOLIST_FIELD",
-  DELETE_TODOLIST = "DELETE_TODOLIST",
+  SET_TODOTASK_FIELD = "SET_TODOTASK_FIELD",
+  DELETE_TODOTASK = "DELETE_TODOTASK",
 }
 
 export type TodoListsAction =
   | {
-      type: TodoListsActionType.ADD_TODOLIST;
-    }
-  | {
-      type: TodoListsActionType.DELETE_TODOLIST;
-      payload: {
-        listId: string;
-      };
-    }
-  | {
       type: TodoListsActionType.ADD_TODOTASK;
+    }
+  | {
+      type: TodoListsActionType.DELETE_TODOTASK;
       payload: {
         listId: string;
       };
     }
   | {
-      type: TodoListsActionType.SET_TODOLIST_FIELD;
+      type: TodoListsActionType.SET_TODOTASK_FIELD;
       payload: {
         listId: string;
         field: "name" | "description";

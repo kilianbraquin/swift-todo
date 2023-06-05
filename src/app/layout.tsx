@@ -1,6 +1,22 @@
 import "@/styles/globals.css";
 import { FC, PropsWithChildren } from "react";
 import { Metadata } from "next";
+import { Inter, Nunito } from "next/font/google";
+import clsx from "clsx";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+  weight: ["400", "500", "700"],
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nunito",
+  weight: ["400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Kilian Braquin",
@@ -34,10 +50,7 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="https://use.typekit.net/mbl2nix.css" />
-      </head>
+    <html lang="en" className={clsx(inter.className, nunito.className)}>
       <body>{children}</body>
     </html>
   );

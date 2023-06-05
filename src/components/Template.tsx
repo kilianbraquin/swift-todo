@@ -4,12 +4,12 @@ import { Header } from "@/components/Header";
 import { TodoListContext } from "@/contexts/TodoListContext";
 import { initialTodoLists, todoListsReducer } from "@/reducers/todolists";
 import { useReducer } from "react";
-import { NewListButton } from "@/components/NewListButton";
+import { NewTaskButton } from "@/components/NewTaskButton";
 import { AnimatePresence } from "framer-motion";
-import { TodoList } from "@/components/TodoList";
+import { TodoItem } from "@/components/TodoItem";
 
 export const Template = () => {
-  const [{ todoLists }, todoListsDispatch] = useReducer(
+  const [{ tasks }, todoListsDispatch] = useReducer(
     todoListsReducer,
     initialTodoLists
   );
@@ -17,16 +17,16 @@ export const Template = () => {
   return (
     <TodoListContext.Provider
       value={{
-        todoLists,
+        tasks,
         todoListsDispatch,
       }}
     >
       <Header />
       <main className="container flex flex-col gap-8 items-center pt-24 pb-16 relative min-h-screen">
-        <NewListButton />
+        <NewTaskButton />
         <AnimatePresence mode="popLayout">
-          {todoLists.map((todoList) => (
-            <TodoList key={todoList.id} todoList={todoList} />
+          {tasks.map((task) => (
+            <TodoItem key={task.id} task={task} />
           ))}
         </AnimatePresence>
       </main>

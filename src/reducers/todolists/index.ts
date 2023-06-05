@@ -1,8 +1,8 @@
 import {
-  TodoList,
   TodoListsAction,
   TodoListsActionType,
   TodoListsState,
+  TodoTask,
 } from "@/reducers/todolists/types";
 import { Reducer } from "react";
 
@@ -14,7 +14,7 @@ function generateItemId() {
 }
 
 export const initialTodoLists: TodoListsState = {
-  todoLists: [],
+  tasks: [],
 };
 
 export const todoListsReducer: Reducer<TodoListsState, TodoListsAction> = (
@@ -22,28 +22,26 @@ export const todoListsReducer: Reducer<TodoListsState, TodoListsAction> = (
   action
 ) => {
   switch (action.type) {
-    case TodoListsActionType.ADD_TODOLIST: {
-      const newTodoList: TodoList = {
+    case TodoListsActionType.ADD_TODOTASK: {
+      const newTodoTask: TodoTask = {
         id: generateItemId(),
         name: "New TodoList",
         description: "",
-        tasks: [],
+        done: false,
       };
       return {
         ...state,
-        todoLists: [...state.todoLists, newTodoList],
+        tasks: [...state.tasks, newTodoTask],
       };
     }
-    case TodoListsActionType.DELETE_TODOLIST: {
+    case TodoListsActionType.DELETE_TODOTASK: {
       return {
         ...state,
-        todoLists: state.todoLists.filter(
-          ({ id }) => id !== action.payload.listId
-        ),
+        tasks: state.tasks.filter(({ id }) => id !== action.payload.listId),
       };
     }
-    case TodoListsActionType.SET_TODOLIST_FIELD: {
-      const todoList = state.todoLists.find(
+    case TodoListsActionType.SET_TODOTASK_FIELD: {
+      const todoList = state.tasks.find(
         ({ id }) => id === action.payload.listId
       );
       if (todoList) {
