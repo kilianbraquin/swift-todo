@@ -1,7 +1,7 @@
 import { TodoListContext } from "@/contexts/TodoListContext";
 import { deleteTodoList, setTodoListField } from "@/reducers/todolists/actions";
 import { TodoList as TodoListType } from "@/reducers/todolists/types";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion } from "framer-motion";
 import { FC, useContext, useEffect, useRef } from "react";
 
 export type TodoListProps = {
@@ -9,18 +9,17 @@ export type TodoListProps = {
 };
 
 export const TodoList: FC<TodoListProps> = ({ todoList }) => {
-  const controls = useAnimationControls();
   const { todoListsDispatch } = useContext(TodoListContext);
   const refNameInput = useRef<HTMLInputElement>(null);
   const refDescriptionInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log("called");
-    refNameInput.current.scrollIntoView({ behavior: "smooth" });
+    refNameInput.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   return (
     <motion.div
+      layout
       className="bg-white max-w-xl w-full px-4 py-3 rounded-md shadow-md"
       initial={{
         opacity: 0,
@@ -47,7 +46,7 @@ export const TodoList: FC<TodoListProps> = ({ todoList }) => {
         placeholder="Name"
         autoFocus={true}
         onKeyDown={(event) => {
-          if (event.key === "Enter") refDescriptionInput.current.focus();
+          if (event.key === "Enter") refDescriptionInput.current?.focus();
         }}
       />
       <input
@@ -62,7 +61,7 @@ export const TodoList: FC<TodoListProps> = ({ todoList }) => {
         }
         placeholder="Description"
         onKeyDown={(event) => {
-          if (event.key === "Enter") refDescriptionInput.current.blur();
+          if (event.key === "Enter") refDescriptionInput.current?.blur();
         }}
       />
       <button onClick={() => todoListsDispatch(deleteTodoList(todoList.id))}>
