@@ -11,8 +11,10 @@ export const MainTemplate = () => {
   return (
     <main className="container pt-24 pb-16 relative min-h-screen flex flex-col">
       <LayoutGroup>
+        <NewTaskButton
+          className={clsx(!addTasksOnTop ? "order-2 mt-4" : "mb-4")}
+        />
         <TodoList />
-        <NewTaskButton className={clsx(addTasksOnTop && "-order-1 mb-8")} />
         <motion.div className="absolute bottom-0 inset-x-0 flex justify-center py-2">
           <div className="font-bold">By IndieBaie</div>
         </motion.div>

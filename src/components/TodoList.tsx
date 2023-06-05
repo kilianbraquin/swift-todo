@@ -8,15 +8,15 @@ export const TodoList: FC = () => {
   const setTasks = useUserTasks((state) => state.setTasks);
   return (
     <Reorder.Group
-      className="max-w-lg w-full flex flex-col mx-auto"
+      className="max-w-lg w-full mx-auto"
       axis="y"
       values={tasks}
-      onReorder={(tasks) => setTasks(tasks)}
+      onReorder={(tasks) => {
+        setTasks(tasks);
+      }}
     >
       {tasks.map((task) => (
-        <Reorder.Item key={task.id} value={task}>
-          <TodoItem task={task} />
-        </Reorder.Item>
+        <TodoItem key={task.id} task={task} />
       ))}
     </Reorder.Group>
   );

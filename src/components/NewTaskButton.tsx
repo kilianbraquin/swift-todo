@@ -6,7 +6,7 @@ import { useAutoFocus } from "@/stores/useAutoFocus";
 import clsx from "clsx";
 
 export type NewTaskButtonProps = {
-  className: string;
+  className?: string;
 };
 
 export const NewTaskButton: FC<NewTaskButtonProps> = ({ className }) => {
