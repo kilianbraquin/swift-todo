@@ -1,7 +1,6 @@
-import { TodoListContext } from "@/contexts/TodoListContext";
-import { addTodoTask } from "@/reducers/todolists/actions";
 import { AnimatePresence, motion } from "framer-motion";
-import { FC, useCallback, useContext } from "react";
+import { FC } from "react";
+import { useUserTasks } from "@/stores/useUserTasks";
 
 const positionHorizontal = {
   left: "50%",
@@ -9,11 +8,8 @@ const positionHorizontal = {
 };
 
 export const NewTaskButton: FC = () => {
-  const { tasks, todoListsDispatch } = useContext(TodoListContext);
-
-  const createNewTodoList = useCallback(() => {
-    todoListsDispatch(addTodoTask());
-  }, []);
+  const tasks = useUserTasks((state) => state.tasks);
+  const addTask = useUserTasks((state) => state.addTask);
 
   return (
     <>
@@ -21,7 +17,7 @@ export const NewTaskButton: FC = () => {
         {tasks.length === 0 && (
           <motion.button
             className="bg-primary-500 font-medium text-white p-4 rounded-lg shadow-md fixed"
-            onClick={createNewTodoList}
+            onClick={addTask}
             whileHover={{
               scale: 1.05,
             }}
@@ -51,7 +47,7 @@ export const NewTaskButton: FC = () => {
               },
             }}
           >
-            + Create New List
+            + Create New Task
           </motion.button>
         )}
       </AnimatePresence>
@@ -59,7 +55,7 @@ export const NewTaskButton: FC = () => {
         {tasks.length > 0 && (
           <motion.button
             className="bg-primary-500 text-white pt-2 pb-1.5 font-medium w-80 rounded-t-lg shadow-md absolute"
-            onClick={createNewTodoList}
+            onClick={addTask}
             whileHover={{
               scale: 1.05,
             }}
@@ -87,7 +83,7 @@ export const NewTaskButton: FC = () => {
               },
             }}
           >
-            + Create New List
+            + Create New Task
           </motion.button>
         )}
       </AnimatePresence>

@@ -1,8 +1,12 @@
 import { Metadata, NextPage } from "next";
-import { Template } from "@/components/Template";
+import dynamic from "next/dynamic";
+
+const MainTemplate = dynamic(() => import("@/components/MainTemplate"), {
+  ssr: false,
+});
 
 const HomePage: NextPage = () => {
-  return <Template />;
+  return <MainTemplate />;
 };
 
 export const metadata: Metadata = {

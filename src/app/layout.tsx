@@ -3,6 +3,8 @@ import { FC, PropsWithChildren } from "react";
 import { Metadata } from "next";
 import { Inter, Nunito } from "next/font/google";
 import clsx from "clsx";
+import { Header } from "@/components/Header";
+import { Zustand } from "@/components/Zustand";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,7 +53,11 @@ export const metadata: Metadata = {
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en" className={clsx(inter.className, nunito.className)}>
-      <body>{children}</body>
+      <body>
+        <Zustand />
+        <Header />
+        {children}
+      </body>
     </html>
   );
 };

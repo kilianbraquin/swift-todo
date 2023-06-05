@@ -1,15 +1,14 @@
-import { TodoListContext } from "@/contexts/TodoListContext";
-import { deleteTodoTask, setTodoTaskField } from "@/reducers/todolists/actions";
-import { TodoTask } from "@/reducers/todolists/types";
 import { motion } from "framer-motion";
-import { FC, useContext, useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
+import { Task, useUserTasks } from "@/stores/useUserTasks";
 
 export type TodoItemProps = {
-  task: TodoTask;
+  task: Task;
 };
 
 export const TodoItem: FC<TodoItemProps> = ({ task }) => {
-  const { todoListsDispatch } = useContext(TodoListContext);
+  const removeTask = useUserTasks((state) => state.removeTask);
+  const setTodoTaskField = useUserTasks((state) => state.setTodoTaskField);
   const refNameInput = useRef<HTMLInputElement>(null);
   const refDescriptionInput = useRef<HTMLInputElement>(null);
 
@@ -41,9 +40,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         type="text"
         value={task.name}
         onChange={(e) =>
-          todoListsDispatch(
-            setTodoTaskField(task.id, "name", e.currentTarget.value)
-          )
+          setTodoTaskField(task.id, "name", e.currentTarget.value)
         }
         placeholder="Name"
         autoFocus={true}
@@ -57,24 +54,14 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         type="text"
         value={task.description}
         onChange={(e) =>
-          todoListsDispatch(
-            setTodoTaskField(task.id, "description", e.currentTarget.value)
-          )
+          setTodoTaskField(task.id, "description", e.currentTarget.value)
         }
         placeholder="Description"
         onKeyDown={(event) => {
           if (event.key === "Enter") refDescriptionInput.current?.blur();
         }}
       />
-      <button
-        onClick={() => {
-          console.log("me");
-          todoListsDispatch(deleteTodoTask(task.id));
-          console.log("after");
-        }}
-      >
-        Delete
-      </button>
+      <button onClick={() => removeTask(task.id)}>Delete</button>
     </motion.div>
   );
 };
