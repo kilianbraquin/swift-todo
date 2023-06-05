@@ -1,25 +1,23 @@
 "use client";
-import { useUserTasks } from "@/stores/useUserTasks";
+import { LayoutGroup, motion } from "framer-motion";
+import { TodoList } from "@/components/TodoList";
 import { NewTaskButton } from "@/components/NewTaskButton";
-import { Footer } from "@/components/Footer";
-import { AnimatePresence } from "framer-motion";
-import { TodoItem } from "@/components/TodoItem";
+import { useUserPreferences } from "@/stores/useUserPreferences";
+import clsx from "clsx";
 
 export const MainTemplate = () => {
-  const tasks = useUserTasks((state) => state.tasks);
+  const addTasksOnTop = useUserPreferences((state) => state.addTasksOnTop);
 
   return (
-    <>
-      <main className="container flex flex-col gap-8 items-center pt-24 pb-16 relative min-h-screen">
-        <NewTaskButton />
-        <AnimatePresence mode="popLayout">
-          {tasks.map((task) => (
-            <TodoItem key={task.id} task={task} />
-          ))}
-        </AnimatePresence>
-      </main>
-      <Footer />
-    </>
+    <main className="container pt-24 pb-16 relative min-h-screen flex flex-col">
+      <LayoutGroup>
+        <TodoList />
+        <NewTaskButton className={clsx(addTasksOnTop && "-order-1 mb-8")} />
+        <motion.div className="absolute bottom-0 inset-x-0 flex justify-center py-2">
+          <div className="font-bold">By IndieBaie</div>
+        </motion.div>
+      </LayoutGroup>
+    </main>
   );
 };
 

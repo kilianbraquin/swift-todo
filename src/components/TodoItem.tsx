@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { FC, useEffect, useRef } from "react";
+import { FC, useRef } from "react";
 import { Task, useUserTasks } from "@/stores/useUserTasks";
+import { useAutoFocus } from "@/stores/useAutoFocus";
 
 export type TodoItemProps = {
   task: Task;
@@ -11,17 +12,12 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
   const setTodoTaskField = useUserTasks((state) => state.setTodoTaskField);
   const refNameInput = useRef<HTMLInputElement>(null);
   const refDescriptionInput = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    refNameInput.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  const autoFocusTaskId = useAutoFocus((state) => state.autoFocusTaskId);
 
   return (
     <motion.div
       layout
-      drag="y"
-      dragMomentum={false}
-      className="bg-white max-w-xl w-full px-4 py-3 rounded-md shadow-md"
+      className="bg-white px-4 py-3 rounded-md shadow-md mb-8"
       initial={{
         opacity: 0,
         scale: 0.75,
@@ -29,9 +25,6 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
       animate={{
         opacity: 1,
         scale: 1,
-      }}
-      exit={{
-        opacity: 0,
       }}
     >
       <input
@@ -42,8 +35,8 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         onChange={(e) =>
           setTodoTaskField(task.id, "name", e.currentTarget.value)
         }
+        autoFocus={task.id === autoFocusTaskId}
         placeholder="Name"
-        autoFocus={true}
         onKeyDown={(event) => {
           if (event.key === "Enter") refDescriptionInput.current?.focus();
         }}

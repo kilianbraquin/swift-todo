@@ -1,92 +1,30 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { FC } from "react";
 import { useUserTasks } from "@/stores/useUserTasks";
+import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+import { useAutoFocus } from "@/stores/useAutoFocus";
+import clsx from "clsx";
 
-const positionHorizontal = {
-  left: "50%",
-  translateX: "-50%",
+export type NewTaskButtonProps = {
+  className: string;
 };
 
-export const NewTaskButton: FC = () => {
-  const tasks = useUserTasks((state) => state.tasks);
+export const NewTaskButton: FC<NewTaskButtonProps> = ({ className }) => {
   const addTask = useUserTasks((state) => state.addTask);
+  const setAutoFocus = useAutoFocus((state) => state.setAutoFocus);
 
   return (
-    <>
-      <AnimatePresence>
-        {tasks.length === 0 && (
-          <motion.button
-            className="bg-primary-500 font-medium text-white p-4 rounded-lg shadow-md fixed"
-            onClick={addTask}
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{ scale: 0.9 }}
-            initial={{
-              ...positionHorizontal,
-              bottom: "50%",
-              translateX: "-50%",
-              translateY: "32px",
-              opacity: 0,
-              scale: 0.9,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              transition: {
-                delay: 0.3,
-              },
-            }}
-            exit={{
-              bottom: 0,
-              translateY: "100%",
-              scale: 0.2,
-              opacity: 0.5,
-              transition: {
-                duration: 0.3,
-              },
-            }}
-          >
-            + Create New Task
-          </motion.button>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {tasks.length > 0 && (
-          <motion.button
-            className="bg-primary-500 text-white pt-2 pb-1.5 font-medium w-80 rounded-t-lg shadow-md absolute"
-            onClick={addTask}
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{ scale: 0.9 }}
-            initial={{
-              ...positionHorizontal,
-              bottom: "0",
-              translateX: "-50%",
-              transformOrigin: "bottom center",
-              opacity: 0,
-              scale: 0.9,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              transformOrigin: "bottom center",
-              transition: { delay: 0.3 },
-            }}
-            exit={{
-              bottom: 0,
-              scale: 0,
-              transformOrigin: "bottom center",
-              transition: {
-                duration: 0.3,
-              },
-            }}
-          >
-            + Create New Task
-          </motion.button>
-        )}
-      </AnimatePresence>
-    </>
+    <motion.button
+      className={clsx(
+        className,
+        "bg-neutral-900/5 hover:border-neutral-900/30 border-neutral-900/20 border-dashed rounded-md border-2 mx-auto max-w-lg block w-full text-center h-28 text-neutral-700"
+      )}
+      onClick={() => {
+        const newTaskId = addTask();
+        setAutoFocus(newTaskId);
+      }}
+    >
+      <PlusIcon className="mx-auto" width={24} />
+    </motion.button>
   );
 };
