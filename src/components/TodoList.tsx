@@ -13,7 +13,7 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
   const setTasks = useUserTasks((state) => state.setTasks);
   return (
     <Reorder.Group
-      className={clsx(className, "max-w-lg w-full mx-auto space-y-4")}
+      className={clsx(className, "mx-auto w-full max-w-lg space-y-4")}
       axis="y"
       values={tasks}
       onReorder={(tasks) => {

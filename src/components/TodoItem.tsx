@@ -50,7 +50,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
       }}
     >
       <motion.div
-        className="bg-white px-4 py-3 rounded-md shadow-md cursor-grab flex items-center gap-2 active:cursor-grabbing"
+        className="flex cursor-grab items-center gap-2 rounded-md bg-white px-4 py-3 shadow-md active:cursor-grabbing"
         initial={{
           opacity: 0,
           scale: 0.75,
@@ -64,7 +64,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         <input
           ref={refNameInput}
           className={clsx(
-            "flex-1 block bg-none outline-none min-w-0 font-title font-bold text-lg sm:text-xl text-neutral-900 overflow-ellipsis",
+            "block min-w-0 flex-1 overflow-ellipsis bg-none font-title text-lg font-bold text-neutral-900 outline-none sm:text-xl",
             isDragged && "cursor-grabbing"
           )}
           type="text"

@@ -41,14 +41,14 @@ export const HeaderMenu: FC = () => {
     <div ref={refMenu}>
       <motion.button
         ref={refs.setReference}
-        className="p-2 hover:bg-neutral-900/5 rounded-md"
+        className="rounded-md p-2 hover:bg-neutral-900/5"
         onClick={() => setIsOpen(!isOpen)}
       >
         <SettingsIcon width={24}></SettingsIcon>
       </motion.button>
       {isOpen && (
         <div
-          className="bg-white border border-neutral-900/20 p-4 rounded-md shadow"
+          className="rounded-md border border-neutral-900/20 bg-white p-4 shadow"
           ref={refs.setFloating}
           style={floatingStyles}
         >
@@ -69,7 +69,7 @@ export const HeaderMenu: FC = () => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 p-px text-danger-600 font-bold"
+                className="flex items-center gap-1.5 p-px font-bold text-danger-600"
                 onClick={removeAllTasks}
               >
                 <TrashIcon height={16} className="-translate-y-px" />

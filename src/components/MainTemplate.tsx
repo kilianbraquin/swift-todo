@@ -10,11 +10,11 @@ export const MainTemplate = () => {
   const addTasksOnTop = useUserPreferences((state) => state.addTasksOnTop);
 
   return (
-    <main className="container pt-24 pb-12 relative min-h-screen flex flex-col gap-4">
+    <main className="container relative flex min-h-screen flex-col gap-4 pb-12 pt-24">
       <LayoutGroup>
         <NewTaskButton className={clsx(!addTasksOnTop && "order-2")} />
         <TodoList />
-        <motion.div className="absolute bottom-0 inset-x-0 flex justify-center py-2">
+        <motion.div className="absolute inset-x-0 bottom-0 flex justify-center py-2">
           <div className="font-bold">By IndieBaie</div>
         </motion.div>
       </LayoutGroup>

@@ -3,17 +3,20 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    body {
-        @apply bg-neutral-50;
-        @apply text-neutral-700;
-        @apply font-body;
-    }
+  body {
+    @apply bg-neutral-50;
+    @apply text-neutral-700;
+    @apply font-body;
+  }
 
-    h1, h2, h3, h4 {
-        @apply font-bold;
-    }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold;
+  }
 }
