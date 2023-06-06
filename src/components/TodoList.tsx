@@ -2,13 +2,18 @@ import { FC } from "react";
 import { Reorder } from "framer-motion";
 import { useUserTasks } from "@/stores/useUserTasks";
 import { TodoItem } from "@/components/TodoItem";
+import clsx from "clsx";
 
-export const TodoList: FC = () => {
+export type TodoListProps = {
+  className?: string;
+};
+
+export const TodoList: FC<TodoListProps> = ({ className }) => {
   const tasks = useUserTasks((state) => state.tasks);
   const setTasks = useUserTasks((state) => state.setTasks);
   return (
     <Reorder.Group
-      className="max-w-lg w-full mx-auto"
+      className={clsx(className, "max-w-lg w-full mx-auto space-y-4")}
       axis="y"
       values={tasks}
       onReorder={(tasks) => {

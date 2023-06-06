@@ -14,7 +14,7 @@ type Action = {
 export const useUserPreferences = create(
   persist<State & Action>(
     (set) => ({
-      addTasksOnTop: false,
+      addTasksOnTop: true,
       autoFocusNewTask: false,
       setAddTasksOnTop: (newValue) => set({ addTasksOnTop: newValue }),
       setAutoFocusNewTask: (newValue) => set({ autoFocusNewTask: newValue }),

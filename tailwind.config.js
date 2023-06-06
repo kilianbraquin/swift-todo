@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -36,6 +37,7 @@ module.exports = {
         800: "#3A404A",
         900: "#24272D",
       },
+      danger: colors.red,
     },
     container: {
       center: true,

@@ -1,15 +1,19 @@
 import { motion, Reorder } from "framer-motion";
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import { Task, useUserTasks } from "@/stores/useUserTasks";
 import { useAutoFocus } from "@/stores/useAutoFocus";
 import { useUserPreferences } from "@/stores/useUserPreferences";
 import clsx from "clsx";
+import { TodoCheckbox } from "@/components/TodoCheckbox";
+import { TodoMenu } from "@/components/TodoMenu";
 
 export type TodoItemProps = {
   task: Task;
 };
 
 export const TodoItem: FC<TodoItemProps> = ({ task }) => {
+  const [disableDragging, setDisableDragging] = useState(false);
+  const [isDragged, setIsDragged] = useState(false);
   const itemRef = useRef<HTMLLIElement>(null);
   const autoFocusNewTask = useUserPreferences(
     (state) => state.autoFocusNewTask
@@ -23,22 +27,30 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
   return (
     <Reorder.Item
       ref={itemRef}
-      drag="y"
+      drag={disableDragging ? false : "y"}
       tabIndex={-1}
       id={task.id}
       value={task}
       onDrag={(e, pan) => {
-        if (
-          Math.abs(pan.offset.y) > 16 &&
-          itemRef.current &&
-          itemRef.current !== document.activeElement
-        )
-          itemRef.current.focus();
+        if (window.getSelection()?.toString()) {
+          setDisableDragging(true);
+        } else if (!disableDragging && Math.abs(pan.offset.y) > 1) {
+          setIsDragged(true);
+          if (itemRef.current && itemRef.current !== document.activeElement) {
+            itemRef.current.focus();
+          }
+        }
       }}
-      className="mb-4"
+      whileDrag={{
+        scale: isDragged ? 0.95 : 1,
+      }}
+      onDragEnd={() => {
+        setIsDragged(false);
+        setDisableDragging(false);
+      }}
     >
       <motion.div
-        className="bg-white px-4 py-3 rounded-md shadow-md cursor-pointer"
+        className="bg-white px-4 py-3 rounded-md shadow-md cursor-grab flex items-center gap-2 active:cursor-grabbing"
         initial={{
           opacity: 0,
           scale: 0.75,
@@ -48,10 +60,12 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
           scale: 1,
         }}
       >
+        <TodoCheckbox value={true} setValue={() => null} />
         <input
           ref={refNameInput}
           className={clsx(
-            "block bg-none outline-none font-title font-bold text-xl mb-1 text-neutral-900"
+            "flex-1 block bg-none outline-none min-w-0 font-title font-bold text-lg sm:text-xl text-neutral-900 overflow-ellipsis",
+            isDragged && "cursor-grabbing"
           )}
           type="text"
           value={task.name}
@@ -64,20 +78,8 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
             if (event.key === "Enter") refDescriptionInput.current?.focus();
           }}
         />
-        <input
-          ref={refDescriptionInput}
-          className={clsx("block bg-none outline-none")}
-          type="text"
-          value={task.description}
-          onChange={(e) =>
-            setTodoTaskField(task.id, "description", e.currentTarget.value)
-          }
-          placeholder="Description"
-          onKeyDown={(event) => {
-            if (event.key === "Enter") refDescriptionInput.current?.blur();
-          }}
-        />
-        <button onClick={() => removeTask(task.id)}>Delete</button>
+        <TodoMenu />
+        {/*<button onClick={() => removeTask(task.id)}>Delete</button>*/}
       </motion.div>
     </Reorder.Item>
   );

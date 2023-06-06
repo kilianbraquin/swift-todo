@@ -17,11 +17,14 @@ export const NewTaskButton: FC<NewTaskButtonProps> = ({ className }) => {
     <motion.button
       className={clsx(
         className,
-        "bg-neutral-900/5 hover:border-neutral-900/30 border-neutral-900/20 border-dashed rounded-md border-2 mx-auto max-w-lg block w-full text-center h-28 text-neutral-700"
+        "bg-neutral-900/5 hover:border-neutral-900/30 border-neutral-900/20 border-dashed rounded-md border-2 mx-auto max-w-lg block w-full text-center h-16 text-neutral-700"
       )}
       onClick={() => {
         const newTaskId = addTask();
         setAutoFocus(newTaskId);
+      }}
+      whileTap={{
+        scale: 0.95,
       }}
     >
       <PlusIcon className="mx-auto" width={24} />

@@ -5,7 +5,6 @@ import { useUserPreferences } from "@/stores/useUserPreferences";
 export type Task = {
   id: string;
   name: string;
-  description: string;
   done: Date | null;
 };
 
@@ -17,11 +16,8 @@ type Action = {
   addTask: () => string;
   setTasks: (tasks: Task[]) => void;
   removeTask: (taskId: string) => void;
-  setTodoTaskField: (
-    taskId: string,
-    field: "name" | "description",
-    value: string
-  ) => void;
+  removeAllTasks: () => void;
+  setTodoTaskField: (taskId: string, field: "name", value: string) => void;
 };
 
 function generateTaskId() {
@@ -39,7 +35,6 @@ export const useUserTasks = create(
         const newTodoTask: Task = {
           id: generateTaskId(),
           name: "New Task",
-          description: "",
           done: null,
         };
         set((state) => {
@@ -68,6 +63,7 @@ export const useUserTasks = create(
           }
           return { tasks: [...state.tasks] };
         }),
+      removeAllTasks: () => set(() => ({ tasks: [] })),
     }),
     {
       name: "user_tasks", // name of item in the storage (must be unique)
