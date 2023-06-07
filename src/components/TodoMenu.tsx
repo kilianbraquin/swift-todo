@@ -4,7 +4,12 @@ import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 export const TodoMenu: FC = () => {
   return (
     <>
-      <button>
+      <button
+        onClick={() => alert("e")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") e.stopPropagation();
+        }}
+      >
         <EllipsisHorizontalIcon height={24} />
       </button>
     </>

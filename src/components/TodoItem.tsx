@@ -19,13 +19,14 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
     (state) => state.autoFocusNewTask
   );
   const removeTask = useUserTasks((state) => state.removeTask);
+  const toggleTaskStatus = useUserTasks((state) => state.toggleTaskStatus);
   const setTodoTaskField = useUserTasks((state) => state.setTodoTaskField);
   const refNameInput = useRef<HTMLInputElement>(null);
-  const refDescriptionInput = useRef<HTMLInputElement>(null);
   const autoFocusTaskId = useAutoFocus((state) => state.autoFocusTaskId);
 
   return (
     <Reorder.Item
+      className="outline-main"
       ref={itemRef}
       drag={disableDragging ? false : "y"}
       tabIndex={-1}
@@ -48,6 +49,22 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         setIsDragged(false);
         setDisableDragging(false);
       }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") {
+          if (event.shiftKey) {
+            itemRef.current?.focus();
+            toggleTaskStatus(task.id);
+          } else {
+            if (document.activeElement === itemRef.current)
+              itemRef.current?.blur();
+            else itemRef.current?.focus();
+          }
+        } else if (event.key === " ") {
+          refNameInput.current?.focus();
+        } else if (event.key === "Backspace" && event.shiftKey) {
+          removeTask(task.id);
+        }
+      }}
     >
       <motion.div
         className="flex cursor-grab items-center gap-2 rounded-md bg-white px-4 py-3 shadow-md active:cursor-grabbing"
@@ -60,7 +77,11 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
           scale: 1,
         }}
       >
-        <TodoCheckbox value={true} setValue={() => null} />
+        <TodoCheckbox
+          value={task.done !== null}
+          setValue={() => toggleTaskStatus(task.id)}
+          disabled={isDragged}
+        />
         <input
           ref={refNameInput}
           className={clsx(
@@ -74,8 +95,11 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
           }
           autoFocus={autoFocusNewTask && task.id === autoFocusTaskId}
           placeholder="Name"
-          onKeyDown={(event) => {
-            if (event.key === "Enter") refDescriptionInput.current?.focus();
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              itemRef.current?.focus();
+              e.stopPropagation();
+            }
           }}
         />
         <TodoMenu />

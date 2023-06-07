@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply outline-main;
+  }
+
   html {
     scroll-behavior: smooth;
   }

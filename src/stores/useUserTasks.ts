@@ -16,6 +16,7 @@ type Action = {
   addTask: () => string;
   setTasks: (tasks: Task[]) => void;
   removeTask: (taskId: string) => void;
+  toggleTaskStatus: (taskId: string) => void;
   removeAllTasks: () => void;
   setTodoTaskField: (taskId: string, field: "name", value: string) => void;
 };
@@ -55,6 +56,17 @@ export const useUserTasks = create(
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== taskId),
         })),
+      toggleTaskStatus: (taskId) =>
+        set((state) => {
+          const task = state.tasks.find((task) => task.id === taskId);
+          if (task) {
+            if (!task.done) task.done = new Date();
+            else task.done = null;
+          }
+          return {
+            tasks: [...state.tasks],
+          };
+        }),
       setTodoTaskField: (taskId, field, value) =>
         set((state) => {
           const task = state.tasks.find(({ id }) => id === taskId);

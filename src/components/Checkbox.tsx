@@ -9,7 +9,13 @@ export type CheckboxProps = {
 
 export const Checkbox: FC<CheckboxProps> = ({ label, value, setValue }) => {
   return (
-    <label className="flex cursor-pointer select-none items-center gap-1.5">
+    <label
+      className="flex cursor-pointer select-none items-center gap-1.5"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") setValue(!value);
+      }}
+    >
       <input
         type="checkbox"
         className="hidden"
