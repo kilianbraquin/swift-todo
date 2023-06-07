@@ -6,7 +6,6 @@ import { useUserPreferences } from "@/stores/useUserPreferences";
 import clsx from "clsx";
 
 export const MainTemplate = () => {
-  // const tasks = useUserTasks((state) => state.tasks);
   const addTasksOnTop = useUserPreferences((state) => state.addTasksOnTop);
 
   return (

@@ -1,5 +1,5 @@
-import { motion, Reorder } from "framer-motion";
-import { FC, useRef, useState } from "react";
+import { motion, Reorder, usePresence } from "framer-motion";
+import { FC, useEffect, useRef, useState } from "react";
 import { Task, useUserTasks } from "@/stores/useUserTasks";
 import { useAutoFocus } from "@/stores/useAutoFocus";
 import { useUserPreferences } from "@/stores/useUserPreferences";
@@ -12,17 +12,23 @@ export type TodoItemProps = {
 };
 
 export const TodoItem: FC<TodoItemProps> = ({ task }) => {
+  const [isPresent, safeToRemove] = usePresence();
   const [disableDragging, setDisableDragging] = useState(false);
   const [isDragged, setIsDragged] = useState(false);
   const itemRef = useRef<HTMLLIElement>(null);
   const autoFocusNewTask = useUserPreferences(
     (state) => state.autoFocusNewTask
   );
+  const isExistingTask = useUserTasks((state) => state.isExistingTask);
   const removeTask = useUserTasks((state) => state.removeTask);
   const toggleTaskStatus = useUserTasks((state) => state.toggleTaskStatus);
   const setTodoTaskField = useUserTasks((state) => state.setTodoTaskField);
   const refNameInput = useRef<HTMLInputElement>(null);
   const autoFocusTaskId = useAutoFocus((state) => state.autoFocusTaskId);
+
+  useEffect(() => {
+    !isPresent && setTimeout(safeToRemove, 1000);
+  }, [safeToRemove, isPresent]);
 
   return (
     <Reorder.Item
@@ -32,6 +38,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
       tabIndex={-1}
       id={task.id}
       value={task}
+      exit={{ opacity: 0, transition: { delay: 0.5 } }}
       onDrag={(e, pan) => {
         if (window.getSelection()?.toString()) {
           setDisableDragging(true);
@@ -80,6 +87,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         <TodoCheckbox
           value={task.done !== null}
           setValue={() => toggleTaskStatus(task.id)}
+          deleted={!isExistingTask(task.id)}
           disabled={isDragged}
         />
         <input

@@ -15,6 +15,7 @@ type State = {
 type Action = {
   addTask: () => string;
   setTasks: (tasks: Task[]) => void;
+  isExistingTask: (taskId: string) => boolean;
   removeTask: (taskId: string) => void;
   toggleTaskStatus: (taskId: string) => void;
   removeAllTasks: () => void;
@@ -30,8 +31,11 @@ function generateTaskId() {
 
 export const useUserTasks = create(
   persist<State & Action>(
-    (set) => ({
+    (set, get) => ({
       tasks: [],
+      isExistingTask: (taskId: string) => {
+        return get().tasks.some((task) => task.id === taskId);
+      },
       addTask: () => {
         const newTodoTask: Task = {
           id: generateTaskId(),

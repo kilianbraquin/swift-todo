@@ -17,6 +17,8 @@ export const HeaderMenu: FC = () => {
     setAddTasksOnTop,
     autoFocusNewTask,
     setAutoFocusNewTask,
+    hideCompletedTasks,
+    setHideCompletedTasks,
   } = useUserPreferences();
   const { refs, floatingStyles } = useFloating({
     open: isOpen,
@@ -65,6 +67,13 @@ export const HeaderMenu: FC = () => {
                 label="Auto focus new tasks"
                 value={autoFocusNewTask}
                 setValue={setAutoFocusNewTask}
+              />
+            </li>
+            <li>
+              <Checkbox
+                label="Hide completed tasks"
+                value={hideCompletedTasks}
+                setValue={setHideCompletedTasks}
               />
             </li>
             <li>

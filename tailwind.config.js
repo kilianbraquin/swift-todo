@@ -55,6 +55,11 @@ module.exports = {
       title: ["var(--font-nunito)"].concat(defaultTheme.fontFamily.sans),
       body: ["var(--font-inter)"].concat(defaultTheme.fontFamily.sans),
     },
+    extend: {
+      width: {
+        header: "calc(100vw - 32px)",
+      },
+    },
   },
   plugins: [],
 };
