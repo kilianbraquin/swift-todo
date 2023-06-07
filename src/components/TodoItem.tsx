@@ -19,6 +19,8 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
   const autoFocusNewTask = useUserPreferences(
     (state) => state.autoFocusNewTask
   );
+  const moveTaskUp = useUserTasks((state) => state.moveTaskUp);
+  const moveTaskDown = useUserTasks((state) => state.moveTaskDown);
   const isExistingTask = useUserTasks((state) => state.isExistingTask);
   const removeTask = useUserTasks((state) => state.removeTask);
   const toggleTaskStatus = useUserTasks((state) => state.toggleTaskStatus);
@@ -70,6 +72,10 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
           refNameInput.current?.focus();
         } else if (event.key === "Backspace" && event.shiftKey) {
           removeTask(task.id);
+        } else if (event.key === "ArrowUp" && event.altKey) {
+          moveTaskUp(task.id);
+        } else if (event.key === "ArrowDown" && event.altKey) {
+          moveTaskDown(task.id);
         }
       }}
     >
