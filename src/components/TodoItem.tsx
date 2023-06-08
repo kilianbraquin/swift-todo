@@ -114,8 +114,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
             }
           }}
         />
-        <TodoMenu />
-        {/*<button onClick={() => removeTask(task.id)}>Delete</button>*/}
+        <TodoMenu task={task} />
       </motion.div>
     </Reorder.Item>
   );

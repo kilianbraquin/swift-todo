@@ -8,13 +8,7 @@ export type TodoInputProps = Omit<ComponentProps<"input">, "onChange"> & {
 
 export const TodoInput = forwardRef<HTMLInputElement, TodoInputProps>(
   (
-    {
-      onChange = () => null,
-      onEscape = () => null,
-      autoFocus,
-      defaultValue,
-      ...props
-    },
+    { onChange = () => null, onEscape = () => null, defaultValue, ...props },
     ref
   ) => {
     const [inputValue, setInputValue] = useState(defaultValue ?? "");

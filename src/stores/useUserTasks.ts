@@ -20,6 +20,7 @@ export type Action = {
   isExistingTask: (taskId: string) => boolean;
   removeTask: (taskId: string) => void;
   toggleTaskStatus: (taskId: string) => void;
+  duplicateTask: (taskId: string) => string | null;
   moveTaskUp: (taskId: string) => void;
   moveTaskDown: (taskId: string) => void;
   removeAllTasks: () => void;
@@ -66,6 +67,24 @@ export const useUserTasks = create(
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== taskId),
         })),
+      duplicateTask: (taskId) => {
+        const newTaskList = get().tasks.slice();
+        const taskIndex = newTaskList.findIndex((task) => task.id === taskId);
+        if (taskIndex !== -1) {
+          const task = newTaskList[taskIndex];
+          const newTodoTask: Task = {
+            id: generateTaskId(),
+            name: task.name,
+            createdAt: new Date(),
+            done: null,
+          };
+          newTaskList.splice(taskIndex + 1, 0, newTodoTask);
+          set({
+            tasks: newTaskList,
+          });
+          return newTodoTask.id;
+        } else return null;
+      },
       moveTaskUp: (taskId) =>
         set((state) => {
           const newTasksOrder = state.tasks.slice();
