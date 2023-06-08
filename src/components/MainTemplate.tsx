@@ -4,12 +4,14 @@ import { TodoList } from "@/components/TodoList";
 import { NewTaskButton } from "@/components/NewTaskButton";
 import { useUserPreferences } from "@/stores/useUserPreferences";
 import clsx from "clsx";
+import { Help } from "@/components/Help";
 
 export const MainTemplate = () => {
   const addTasksOnTop = useUserPreferences((state) => state.addTasksOnTop);
 
   return (
-    <main className="container relative flex min-h-screen flex-col gap-4 pb-12 pt-24">
+    <main className="relative mx-4 flex min-h-screen flex-col gap-4 pb-12 pt-24 sm:mx-auto sm:max-w-lg">
+      <Help />
       <LayoutGroup>
         <NewTaskButton className={clsx(!addTasksOnTop && "order-2")} />
         <TodoList />

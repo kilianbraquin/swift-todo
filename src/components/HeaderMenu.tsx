@@ -43,7 +43,14 @@ export const HeaderMenu: FC = () => {
   }, []);
 
   return (
-    <div ref={refMenu}>
+    <div
+      ref={refMenu}
+      onBlur={(e) => {
+        if (!refMenu.current?.contains(e.relatedTarget)) {
+          setIsOpen(false);
+        }
+      }}
+    >
       <button
         ref={refs.setReference}
         className="rounded-md p-2 hover:bg-neutral-900/5"
@@ -82,7 +89,10 @@ export const HeaderMenu: FC = () => {
             <li>
               <button
                 className="flex items-center gap-1.5 p-px font-medium"
-                onClick={() => sortTasks("addedDate")}
+                onClick={() => {
+                  sortTasks("addedDate");
+                  setIsOpen(false);
+                }}
               >
                 <ArrowPathRoundedSquareIcon height={16} />
                 Sort by added date
@@ -91,7 +101,10 @@ export const HeaderMenu: FC = () => {
             <li>
               <button
                 className="flex items-center gap-1.5 p-px font-medium"
-                onClick={() => sortTasks("completedDate")}
+                onClick={() => {
+                  sortTasks("completedDate");
+                  setIsOpen(false);
+                }}
               >
                 <ArrowPathRoundedSquareIcon height={16} />
                 Sort by completed date
@@ -100,7 +113,10 @@ export const HeaderMenu: FC = () => {
             <li>
               <button
                 className="flex items-center gap-1.5 p-px font-bold text-danger-600"
-                onClick={removeAllTasks}
+                onClick={() => {
+                  removeAllTasks();
+                  setIsOpen(false);
+                }}
               >
                 <TrashIcon height={16} className="-translate-y-px" />
                 Remove All Tasks
