@@ -6,6 +6,7 @@ import { useUserPreferences } from "@/stores/useUserPreferences";
 import clsx from "clsx";
 import { TodoCheckbox } from "@/components/TodoCheckbox";
 import { TodoMenu } from "@/components/TodoMenu";
+import { TodoInput } from "@/components/TodoInput";
 
 export type TodoItemProps = {
   task: Task;
@@ -96,19 +97,16 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
           deleted={!isExistingTask(task.id)}
           disabled={isDragged}
         />
-        <input
+        <TodoInput
           ref={refNameInput}
           className={clsx(
             "block min-w-0 flex-1 overflow-ellipsis bg-none font-title text-lg font-bold text-neutral-900 outline-none sm:text-xl",
             isDragged && "cursor-grabbing"
           )}
-          type="text"
-          value={task.name}
-          onChange={(e) =>
-            setTodoTaskField(task.id, "name", e.currentTarget.value)
-          }
+          onChange={(newValue) => setTodoTaskField(task.id, "name", newValue)}
           autoFocus={autoFocusNewTask && task.id === autoFocusTaskId}
           placeholder="Name"
+          defaultValue={task.name}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
               itemRef.current?.focus();

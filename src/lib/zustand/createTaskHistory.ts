@@ -16,7 +16,7 @@ export type TaskHistoryStoreProps = TaskHistoryState & TaskHistoryAction;
 
 export const reduceUserTasksState = <T extends UserTasksState>(
   state
-): UserTasksState => JSON.parse(JSON.stringify(state)); // The easiest way to deep copy and ignore functions
+): UserTasksState => ({ tasks: JSON.parse(JSON.stringify(state)).tasks }); // The easiest way to deep copy and only keep tasks
 
 export const createTaskHistory = (
   userTasksSet: StoreApi<UserTasksState>["setState"],

@@ -20,6 +20,7 @@ export const Zustand: FC = () => {
         if ((e.key === "z" || e.key === "Z") && (e.ctrlKey || e.metaKey)) {
           if (!e.shiftKey) undo();
           else redo();
+          e.preventDefault();
         }
       }
     };

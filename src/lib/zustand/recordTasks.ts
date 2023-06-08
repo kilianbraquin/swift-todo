@@ -21,7 +21,7 @@ declare module "zustand" {
 
 type RecordTasks = <
   T,
-  A,
+  A = T,
   Mps extends [StoreMutatorIdentifier, unknown][] = [],
   Mcs extends [StoreMutatorIdentifier, unknown][] = []
 >(
