@@ -1,17 +1,20 @@
 "use client";
 import { FC, useEffect, useRef, useState } from "react";
 import SettingsIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { motion } from "framer-motion";
 import { offset, useFloating } from "@floating-ui/react-dom";
 import { Checkbox } from "@/components/Checkbox";
 import { useUserPreferences } from "@/stores/useUserPreferences";
 import { useUserTasks } from "@/stores/useUserTasks";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowPathRoundedSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
 
 export const HeaderMenu: FC = () => {
   const refMenu = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const removeAllTasks = useUserTasks((state) => state.removeAllTasks);
+  const sortTasks = useUserTasks((state) => state.sortTasks);
   const {
     addTasksOnTop,
     setAddTasksOnTop,
@@ -41,13 +44,13 @@ export const HeaderMenu: FC = () => {
 
   return (
     <div ref={refMenu}>
-      <motion.button
+      <button
         ref={refs.setReference}
         className="rounded-md p-2 hover:bg-neutral-900/5"
         onClick={() => setIsOpen(!isOpen)}
       >
         <SettingsIcon width={24}></SettingsIcon>
-      </motion.button>
+      </button>
       {isOpen && (
         <div
           className="rounded-md border border-neutral-900/20 bg-white p-4 shadow"
@@ -75,6 +78,24 @@ export const HeaderMenu: FC = () => {
                 value={hideCompletedTasks}
                 setValue={setHideCompletedTasks}
               />
+            </li>
+            <li>
+              <button
+                className="flex items-center gap-1.5 p-px font-medium"
+                onClick={() => sortTasks("addedDate")}
+              >
+                <ArrowPathRoundedSquareIcon height={16} />
+                Sort by added date
+              </button>
+            </li>
+            <li>
+              <button
+                className="flex items-center gap-1.5 p-px font-medium"
+                onClick={() => sortTasks("completedDate")}
+              >
+                <ArrowPathRoundedSquareIcon height={16} />
+                Sort by completed date
+              </button>
             </li>
             <li>
               <button

@@ -120,6 +120,21 @@ export const useUserTasks = create(
       sortTasks: (type) =>
         set((state) => {
           const newTasksOrder = state.tasks.slice();
+          const dateAttribute: keyof Task =
+            type === "completedDate" ? "done" : "createdAt";
+          newTasksOrder.sort((a, b) => {
+            const aDate = a[dateAttribute];
+            const bDate = b[dateAttribute];
+            if (aDate === null && bDate === null) {
+              return 0;
+            } else if (aDate === null) return -1;
+            else if (bDate === null) return 1;
+            else {
+              return new Date(aDate).getTime() > new Date(bDate).getTime()
+                ? -1
+                : 1;
+            }
+          });
           return {
             tasks: newTasksOrder,
           };

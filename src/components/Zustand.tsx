@@ -31,7 +31,7 @@ export const Zustand: FC = () => {
       window.removeEventListener("storage", storageEventCallback);
       window.removeEventListener("keydown", keydownEventCallback);
     };
-  }, []);
+  }, [redo, undo]);
 
   return null;
 };
