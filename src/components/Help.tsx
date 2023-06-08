@@ -7,8 +7,8 @@ const commands = [
   { keys: ["Space"], action: "Edit Task Title" },
   { keys: ["Shift + Enter"], action: "Toggle Task Status" },
   { keys: ["Shift + Backspace"], action: "Delete Task" },
-  { keys: ["Alt + ↑"], action: "Move Task Up" },
-  { keys: ["Alt + ↓"], action: "Move Task Down" },
+  { keys: ["Alt + ↑", "⌥ + ↑"], action: "Move Task Up" },
+  { keys: ["Alt + ↓", "⌥ + ↓"], action: "Move Task Down" },
 ];
 
 export const Help: FC = () => {

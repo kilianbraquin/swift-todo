@@ -22,10 +22,10 @@ export const Checkbox: FC<CheckboxProps> = ({ label, value, setValue }) => {
         checked={value}
         onChange={(e) => setValue(e.currentTarget.checked)}
       />
-      <div className="flex h-4 w-4 items-center justify-center rounded-md border border-neutral-700 text-neutral-700">
-        {value && <CheckIcon className="fill-neutral-700" width={12} />}
+      <div className="flex h-4 w-4 items-center justify-center rounded-md border border-neutral-600">
+        {value && <CheckIcon className="fill-neutral-600" width={12} />}
       </div>
-      <span>{label}</span>
+      <span className="font-medium text-neutral-600">{label}</span>
     </label>
   );
 };

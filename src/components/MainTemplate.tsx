@@ -5,6 +5,7 @@ import { NewTaskButton } from "@/components/NewTaskButton";
 import { useUserPreferences } from "@/stores/useUserPreferences";
 import clsx from "clsx";
 import { Help } from "@/components/Help";
+import Link from "next/link";
 
 export const MainTemplate = () => {
   const addTasksOnTop = useUserPreferences((state) => state.addTasksOnTop);
@@ -15,8 +16,11 @@ export const MainTemplate = () => {
       <LayoutGroup>
         <NewTaskButton className={clsx(!addTasksOnTop && "order-2")} />
         <TodoList />
-        <motion.div className="absolute inset-x-0 bottom-0 flex justify-center py-2">
-          <div className="font-bold">By Kilian Braquin</div>
+        <motion.div className="absolute inset-x-0 bottom-0 py-2 text-center font-bold text-neutral-600">
+          By{" "}
+          <Link href="https://www.kbraquin.com/" className="text-primary-dark">
+            Kilian Braquin
+          </Link>
         </motion.div>
       </LayoutGroup>
     </main>

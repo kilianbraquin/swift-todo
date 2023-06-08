@@ -60,7 +60,7 @@ export const HeaderMenu: FC = () => {
       </button>
       {isOpen && (
         <div
-          className="rounded-md border border-neutral-900/20 bg-white p-4 shadow"
+          className="rounded-md border border-neutral-900/20 bg-white p-4 text-neutral-600 shadow"
           ref={refs.setFloating}
           style={floatingStyles}
         >
@@ -112,7 +112,7 @@ export const HeaderMenu: FC = () => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 p-px font-bold text-danger-600"
+                className="flex items-center gap-1.5 p-px font-bold text-danger-600 hover:text-danger-700"
                 onClick={() => {
                   removeAllTasks();
                   setIsOpen(false);

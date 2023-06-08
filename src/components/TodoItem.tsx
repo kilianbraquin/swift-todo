@@ -35,7 +35,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
 
   return (
     <Reorder.Item
-      className="outline-main"
+      className="outline-primary"
       ref={itemRef}
       drag={disableDragging ? false : "y"}
       tabIndex={-1}
@@ -99,10 +99,8 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         />
         <TodoInput
           ref={refNameInput}
-          className={clsx(
-            "block min-w-0 flex-1 overflow-ellipsis bg-none font-title text-lg font-bold text-neutral-900 outline-none sm:text-xl",
-            isDragged && "cursor-grabbing"
-          )}
+          completed={task.done !== null}
+          className={clsx("min-w-0 flex-1", isDragged && "cursor-grabbing")}
           onChange={(newValue) => setTodoTaskField(task.id, "name", newValue)}
           autoFocus={autoFocusNewTask && task.id === autoFocusTaskId}
           placeholder="Name"

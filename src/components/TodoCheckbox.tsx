@@ -58,7 +58,7 @@ export const TodoCheckbox: FC<TodoCheckboxProps> = ({
       <div
         className={clsx(
           "relative h-5 w-5  rounded-lg border-2",
-          deleted ? "border-danger-500" : "border-main"
+          deleted ? "border-danger-500" : "border-primary"
         )}
       >
         <AnimatePresence>
@@ -66,7 +66,7 @@ export const TodoCheckbox: FC<TodoCheckboxProps> = ({
             <motion.div
               className={clsx(
                 "absolute -inset-px rounded-lg",
-                deleted ? "bg-danger-500" : "bg-main"
+                deleted ? "bg-danger-500" : "bg-primary"
               )}
               initial={{
                 opacity: 0,

@@ -66,11 +66,10 @@ export const TodoMenu: FC<TodoMenuProps> = ({ task }) => {
           <ul className="flex flex-col gap-1.5">
             <li>
               <button
-                className="flex items-center gap-1.5"
+                className="flex items-center gap-1.5 text-neutral-600 hover:text-neutral-700"
                 onClick={() => {
                   const newTaskId = duplicateTask(task.id);
                   if (newTaskId) setAutoFocus(newTaskId);
-                  console.log(newTaskId);
                   setIsOpen(false);
                 }}
                 onKeyDown={(e) => {
@@ -83,7 +82,7 @@ export const TodoMenu: FC<TodoMenuProps> = ({ task }) => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 font-bold text-danger-600"
+                className="flex items-center gap-1.5 font-bold text-danger-600 hover:text-danger-700"
                 onClick={() => {
                   removeTask(task.id);
                   setIsOpen(false);

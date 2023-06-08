@@ -47,15 +47,14 @@ export const createTaskHistory = (
         set({ past: pastHistory, future: futureHistory });
       }
     },
-    savePreviousState: (previousState) => {
-      const reducedPreviousState = previousState;
+    savePreviousState: (reducedPreviousState) => {
       const reducedCurrentState = reduceUserTasksState(userTasksGet());
       if (
         JSON.stringify(reducedPreviousState) !==
         JSON.stringify(reducedCurrentState)
       ) {
         const pastHistory = get().past.slice();
-        pastHistory.push(previousState);
+        pastHistory.push(reducedPreviousState);
         if (pastHistory.length > 50) pastHistory.shift();
         set({ past: pastHistory, future: [] });
       }
