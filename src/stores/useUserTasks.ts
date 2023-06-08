@@ -39,9 +39,8 @@ export const useUserTasks = create(
   persist(
     recordTasks<State & Action>((set, get) => ({
       tasks: [],
-      isExistingTask: (taskId: string) => {
-        return get().tasks.some((task) => task.id === taskId);
-      },
+      isExistingTask: (taskId: string) =>
+        get().tasks.some((task) => task.id === taskId),
       addTask: () => {
         const newTodoTask: Task = {
           id: generateTaskId(),

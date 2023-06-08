@@ -16,7 +16,7 @@ export const MainTemplate = () => {
       <LayoutGroup>
         <NewTaskButton className={clsx(!addTasksOnTop && "order-2")} />
         <TodoList />
-        <motion.div className="absolute inset-x-0 bottom-0 py-2 text-center font-bold text-neutral-600">
+        <motion.div className="absolute inset-x-0 bottom-0 py-2 text-center font-title font-bold text-neutral-600">
           By{" "}
           <Link href="https://www.kbraquin.com/" className="text-primary-dark">
             Kilian Braquin

@@ -13,13 +13,13 @@ const commands = [
 
 export const Help: FC = () => {
   return (
-    <ul className="absolute -left-60 top-4 hidden w-full max-w-[220px] divide-y divide-dashed lg:block xl:-left-72 xl:max-w-[256px]">
+    <ul className="absolute -left-[242px] top-4 hidden w-full max-w-[224px] divide-y divide-dashed lg:block xl:-left-[292px] xl:max-w-[260px]">
       {commands.map(({ keys, action }) => (
         <li
           key={action}
           className="flex gap-1 py-0.5 text-xs first:pt-0 xl:text-sm"
         >
-          <ul className="w-28 flex-shrink-0 font-bold xl:w-32">
+          <ul className="w-28 flex-shrink-0 font-body font-semibold xl:w-32">
             <li className="inline-block whitespace-pre-line">
               {keys.join("\n")}
             </li>

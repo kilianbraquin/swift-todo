@@ -35,7 +35,6 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
 
   return (
     <Reorder.Item
-      className="outline-primary"
       ref={itemRef}
       drag={disableDragging ? false : "y"}
       tabIndex={-1}

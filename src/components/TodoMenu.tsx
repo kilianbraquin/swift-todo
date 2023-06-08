@@ -63,7 +63,7 @@ export const TodoMenu: FC<TodoMenuProps> = ({ task }) => {
           ref={refs.setFloating}
           style={floatingStyles}
         >
-          <ul className="flex flex-col gap-1.5">
+          <ul className="flex flex-col gap-2">
             <li>
               <button
                 className="flex items-center gap-1.5 text-neutral-600 hover:text-neutral-700"
@@ -82,7 +82,7 @@ export const TodoMenu: FC<TodoMenuProps> = ({ task }) => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 font-bold text-danger-600 hover:text-danger-700"
+                className="flex items-center gap-1.5 font-semibold text-danger-600 hover:text-danger-700"
                 onClick={() => {
                   removeTask(task.id);
                   setIsOpen(false);

@@ -57,7 +57,7 @@ export const TodoCheckbox: FC<TodoCheckboxProps> = ({
       />
       <div
         className={clsx(
-          "relative h-5 w-5  rounded-lg border-2",
+          "relative h-5 w-5 rounded-lg border-2",
           deleted ? "border-danger-500" : "border-primary"
         )}
       >

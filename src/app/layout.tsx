@@ -10,26 +10,27 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600"],
 });
 
 const nunito = Nunito({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-nunito",
-  weight: ["400", "500", "700"],
+  weight: ["700"],
 });
 
 export const metadata: Metadata = {
   title: "Swift Todo",
-  description: "Simple React Todo App",
+  description:
+    "Prototype of a web application based on React and Framer Motion that lets you manage a simple to-do list",
   metadataBase: new URL("https://swift.kbraquin.com"),
   themeColor: "#98D4F3",
 };
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="en" className={clsx(inter.className, nunito.className)}>
+    <html lang="en" className={clsx(inter.variable, nunito.variable)}>
       <body>
         <Zustand />
         <Header />

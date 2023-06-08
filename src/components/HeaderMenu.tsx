@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import SettingsIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { offset, useFloating } from "@floating-ui/react-dom";
-import { Checkbox } from "@/components/Checkbox";
+import { HeaderCheckbox } from "@/components/HeaderCheckbox";
 import { useUserPreferences } from "@/stores/useUserPreferences";
 import { useUserTasks } from "@/stores/useUserTasks";
 import {
@@ -66,21 +66,21 @@ export const HeaderMenu: FC = () => {
         >
           <ul>
             <li>
-              <Checkbox
+              <HeaderCheckbox
                 label="Add tasks on top"
                 value={addTasksOnTop}
                 setValue={setAddTasksOnTop}
               />
             </li>
             <li>
-              <Checkbox
+              <HeaderCheckbox
                 label="Auto focus new tasks"
                 value={autoFocusNewTask}
                 setValue={setAutoFocusNewTask}
               />
             </li>
             <li>
-              <Checkbox
+              <HeaderCheckbox
                 label="Hide completed tasks"
                 value={hideCompletedTasks}
                 setValue={setHideCompletedTasks}
@@ -88,7 +88,7 @@ export const HeaderMenu: FC = () => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 p-px font-medium"
+                className="flex items-center gap-1.5 p-px"
                 onClick={() => {
                   sortTasks("addedDate");
                   setIsOpen(false);
@@ -100,7 +100,7 @@ export const HeaderMenu: FC = () => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 p-px font-medium"
+                className="flex items-center gap-1.5 p-px"
                 onClick={() => {
                   sortTasks("completedDate");
                   setIsOpen(false);
@@ -112,7 +112,7 @@ export const HeaderMenu: FC = () => {
             </li>
             <li>
               <button
-                className="flex items-center gap-1.5 p-px font-bold text-danger-600 hover:text-danger-700"
+                className="flex items-center gap-1.5 p-px font-semibold text-danger-600 hover:text-danger-700"
                 onClick={() => {
                   removeAllTasks();
                   setIsOpen(false);

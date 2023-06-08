@@ -15,6 +15,7 @@ export const TodoList: FC<TodoListProps> = ({ className }) => {
   const hideCompletedTasks = useUserPreferences(
     (state) => state.hideCompletedTasks
   );
+
   return (
     <Reorder.Group
       className={clsx(className, "mx-auto w-full max-w-lg space-y-4")}

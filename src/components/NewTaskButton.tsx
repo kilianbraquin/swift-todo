@@ -17,7 +17,7 @@ export const NewTaskButton: FC<NewTaskButtonProps> = ({ className }) => {
     <motion.button
       className={clsx(
         className,
-        "mx-auto block h-16 w-full max-w-lg rounded-md border-2 border-dashed border-neutral-900/20 bg-neutral-900/5 text-center text-neutral-700 hover:border-neutral-900/30"
+        "mx-auto block h-16 w-full max-w-lg rounded-md border-2 border-dashed border-neutral-900/20 bg-neutral-900/5 hover:border-neutral-900/30"
       )}
       onClick={() => {
         const newTaskId = addTask();
