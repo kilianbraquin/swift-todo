@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { FC, PropsWithChildren } from "react";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { Inter, Nunito } from "next/font/google";
 import clsx from "clsx";
 import { Header } from "@/components/Header";
@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   description:
     "Prototype of a web application based on React and Framer Motion that lets you manage a simple to-do list",
   metadataBase: new URL("https://swift.kbraquin.com"),
+};
+
+export const viewport: Viewport = {
   themeColor: "#98D4F3",
 };
 
