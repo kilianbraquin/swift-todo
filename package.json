@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "serve out",
     "format": "prettier --write .",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.0.6",
