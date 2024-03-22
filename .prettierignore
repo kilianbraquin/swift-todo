@@ -1,6 +1,7 @@
 node_modules
 .idea
 .next
-public
+public/
 out
-yarn.lock
+*.tsbuildinfo
+pnpm-lock.yaml

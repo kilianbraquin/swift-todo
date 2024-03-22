@@ -18,7 +18,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
   const [isDragged, setIsDragged] = useState(false);
   const itemRef = useRef<HTMLLIElement>(null);
   const autoFocusNewTask = useUserPreferences(
-    (state) => state.autoFocusNewTask
+    (state) => state.autoFocusNewTask,
   );
   const moveTaskUp = useUserTasks((state) => state.moveTaskUp);
   const moveTaskDown = useUserTasks((state) => state.moveTaskDown);
@@ -72,6 +72,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
           refNameInput.current?.focus();
         } else if (event.key === "Backspace" && event.shiftKey) {
           removeTask(task.id);
+          event.preventDefault();
         } else if (event.key === "ArrowUp" && event.altKey) {
           moveTaskUp(task.id);
         } else if (event.key === "ArrowDown" && event.altKey) {

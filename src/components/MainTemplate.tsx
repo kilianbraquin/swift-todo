@@ -6,12 +6,19 @@ import { useUserPreferences } from "@/stores/useUserPreferences";
 import clsx from "clsx";
 import { Help } from "@/components/Help";
 import Link from "next/link";
+import { useUserTasks } from "@/stores/useUserTasks";
 
 export const MainTemplate = () => {
   const addTasksOnTop = useUserPreferences((state) => state.addTasksOnTop);
+  const tasks = useUserTasks((state) => state.tasks);
 
   return (
-    <main className="relative mx-4 flex min-h-screen flex-col gap-4 pb-12 pt-24 sm:mx-auto sm:max-w-lg">
+    <main
+      className={clsx(
+        "relative mx-4 flex min-h-screen flex-col pb-12 pt-24 sm:mx-auto sm:max-w-lg",
+        tasks.length > 0 && "gap-4",
+      )}
+    >
       <Help />
       <LayoutGroup>
         <NewTaskButton className={clsx(!addTasksOnTop && "order-2")} />
