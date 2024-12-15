@@ -26,8 +26,8 @@ export const TodoMenu: FC<TodoMenuProps> = ({ task }) => {
   });
 
   useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (!refMenu.current?.contains(e.target)) {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (e.target instanceof Node && !refMenu.current?.contains(e.target)) {
         setIsOpen(false);
       }
     };

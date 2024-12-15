@@ -1,4 +1,3 @@
-"use client";
 import { FC, useEffect, useRef, useState } from "react";
 import SettingsIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { offset, useFloating } from "@floating-ui/react-dom";
@@ -30,8 +29,8 @@ export const HeaderMenu: FC = () => {
   });
 
   useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (!refMenu.current?.contains(e.target)) {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (e.target instanceof Node && !refMenu.current?.contains(e.target)) {
         setIsOpen(false);
       }
     };

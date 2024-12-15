@@ -1,7 +1,5 @@
-node_modules
 .idea
-.next
+node_modules
+dist/
 public/
-out
-*.tsbuildinfo
 pnpm-lock.yaml

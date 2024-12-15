@@ -2,11 +2,8 @@ import { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import colors from "tailwindcss/colors";
 
-const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-  ],
+export default {
+  content: ["index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     colors: {
       inherit: "inherit",
@@ -41,8 +38,8 @@ const config: Config = {
       },
     },
     fontFamily: {
-      title: ["var(--font-nunito)"].concat(defaultTheme.fontFamily.sans),
-      body: ["var(--font-inter)"].concat(defaultTheme.fontFamily.sans),
+      title: ["Nunito", ...defaultTheme.fontFamily.sans],
+      body: ["Inter", ...defaultTheme.fontFamily.sans],
     },
     extend: {
       width: {
@@ -50,7 +47,4 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
-};
-
-export default config;
+} satisfies Config;
