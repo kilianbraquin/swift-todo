@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { useUserPreferences } from "@/stores/useUserPreferences";
-import { recordTasks } from "@/lib/zustand/recordTasks";
+import { temporal } from "zundo";
 
 export type Task = {
   id: string;
@@ -37,7 +37,7 @@ function generateTaskId() {
 
 export const useUserTasks = create(
   persist(
-    recordTasks<State & Action>((set, get) => ({
+    temporal<State & Action>((set, get) => ({
       tasks: [],
       isExistingTask: (taskId: string) =>
         get().tasks.some((task) => task.id === taskId),
@@ -69,8 +69,8 @@ export const useUserTasks = create(
       duplicateTask: (taskId) => {
         const newTaskList = get().tasks.slice();
         const taskIndex = newTaskList.findIndex((task) => task.id === taskId);
-        if (taskIndex !== -1) {
-          const task = newTaskList[taskIndex];
+        const task = newTaskList[taskIndex];
+        if (task) {
           const newTodoTask: Task = {
             id: generateTaskId(),
             name: task.name,
@@ -88,52 +88,47 @@ export const useUserTasks = create(
         set((state) => {
           const newTasksOrder = state.tasks.slice();
           const taskIndex = newTasksOrder.findIndex(
-            (task) => task.id === taskId
+            (task) => task.id === taskId,
           );
-          if (taskIndex !== -1 && taskIndex > 0) {
-            const task = newTasksOrder[taskIndex];
+          const task = newTasksOrder[taskIndex];
+          if (task && taskIndex > 0) {
             newTasksOrder.splice(taskIndex, 1);
             newTasksOrder.splice(taskIndex - 1, 0, task);
           }
-          return {
-            tasks: newTasksOrder,
-          };
+          return { tasks: newTasksOrder };
         }),
       moveTaskDown: (taskId) =>
         set((state) => {
           const newTasksOrder = state.tasks.slice();
           const taskIndex = newTasksOrder.findIndex(
-            (task) => task.id === taskId
+            (task) => task.id === taskId,
           );
-          if (taskIndex !== -1 && taskIndex < newTasksOrder.length - 1) {
-            const task = newTasksOrder[taskIndex];
+          const task = newTasksOrder[taskIndex];
+          if (task && taskIndex < newTasksOrder.length - 1) {
             newTasksOrder.splice(taskIndex, 1);
             newTasksOrder.splice(taskIndex + 1, 0, task);
           }
-          return {
-            tasks: newTasksOrder,
-          };
+          return { tasks: newTasksOrder };
         }),
       toggleTaskStatus: (taskId) =>
-        set((state) => {
-          const task = state.tasks.find((task) => task.id === taskId);
-          if (task) {
-            if (!task.done) task.done = new Date();
-            else task.done = null;
-          }
-          return {
-            tasks: state.tasks.slice(),
-          };
-        }),
+        set((state) => ({
+          tasks: state.tasks.map((task) => {
+            if (task.id === taskId) {
+              const value = !task.done ? new Date() : null;
+              return { ...task, done: value };
+            }
+            return task;
+          }),
+        })),
       setTodoTaskField: (taskId, field, value) =>
-        set((state) => {
-          const task = state.tasks.find(({ id }) => id === taskId);
-          if (task) {
-            task[field] = value;
-          }
-          console.log(task);
-          return { tasks: state.tasks.slice() };
-        }),
+        set((state) => ({
+          tasks: state.tasks.map((task) => {
+            if (task.id === taskId) {
+              return { ...task, [field]: value };
+            }
+            return task;
+          }),
+        })),
       removeAllTasks: () => set(() => ({ tasks: [] })),
       sortTasks: (type) =>
         set((state) => {
@@ -153,14 +148,12 @@ export const useUserTasks = create(
                 : 1;
             }
           });
-          return {
-            tasks: newTasksOrder,
-          };
+          return { tasks: newTasksOrder };
         }),
     })),
     {
       name: "user_tasks", // name of item in the storage (must be unique)
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );

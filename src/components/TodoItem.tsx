@@ -30,35 +30,13 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
   const autoFocusTaskId = useAutoFocus((state) => state.autoFocusTaskId);
 
   useEffect(() => {
-    !isPresent && setTimeout(safeToRemove, 1000);
+    if (!isPresent) setTimeout(safeToRemove, 1000);
   }, [safeToRemove, isPresent]);
 
-  return (
-    <Reorder.Item
-      ref={itemRef}
-      drag={disableDragging ? false : "y"}
-      tabIndex={-1}
-      id={task.id}
-      value={task}
-      exit={{ opacity: 0, transition: { delay: 0.5 } }}
-      onDrag={(e, pan) => {
-        if (window.getSelection()?.toString()) {
-          setDisableDragging(true);
-        } else if (!disableDragging && Math.abs(pan.offset.y) > 1) {
-          setIsDragged(true);
-          if (itemRef.current && itemRef.current !== document.activeElement) {
-            itemRef.current.focus();
-          }
-        }
-      }}
-      whileDrag={{
-        scale: isDragged ? 0.95 : 1,
-      }}
-      onDragEnd={() => {
-        setIsDragged(false);
-        setDisableDragging(false);
-      }}
-      onKeyDown={(event) => {
+  useEffect(() => {
+    const element = itemRef.current;
+    if (element) {
+      const onKeyDown = (event: KeyboardEvent): void => {
         if (event.key === "Enter") {
           if (event.shiftKey) {
             itemRef.current?.focus();
@@ -78,6 +56,39 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         } else if (event.key === "ArrowDown" && event.altKey) {
           moveTaskDown(task.id);
         }
+      };
+
+      element.addEventListener("keydown", onKeyDown);
+      return () => {
+        element.removeEventListener("keydown", onKeyDown);
+      };
+    }
+  }, [moveTaskUp, moveTaskDown, removeTask, task.id, toggleTaskStatus]);
+
+  return (
+    <Reorder.Item
+      ref={itemRef}
+      drag={disableDragging ? false : "y"}
+      tabIndex={-1}
+      id={task.id}
+      value={task}
+      exit={{ opacity: 0, transition: { delay: 0.5 } }}
+      onDrag={(_, pan) => {
+        if (window.getSelection()?.toString()) {
+          setDisableDragging(true);
+        } else if (!disableDragging && Math.abs(pan.offset.y) > 1) {
+          setIsDragged(true);
+          if (itemRef.current && itemRef.current !== document.activeElement) {
+            itemRef.current.focus();
+          }
+        }
+      }}
+      whileDrag={{
+        scale: isDragged ? 0.95 : 1,
+      }}
+      onDragEnd={() => {
+        setIsDragged(false);
+        setDisableDragging(false);
       }}
     >
       <motion.div
