@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "description": "Prototype of a web application based on React and Framer Motion that lets you manage a simple to-do list",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Kilian Braquin <kbraquin@indiebaie.com>",
   "engines": {
