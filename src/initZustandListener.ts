@@ -12,7 +12,6 @@ const keydownEventCallback = (e: KeyboardEvent) => {
       const { undo, redo } = useUserTasks.temporal.getState();
       if (!e.shiftKey) undo();
       else redo();
-      console.log(useUserTasks.getState());
       e.preventDefault();
     }
   }
