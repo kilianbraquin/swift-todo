@@ -63,7 +63,7 @@ export const TodoItem: FC<TodoItemProps> = ({ task }) => {
         element.removeEventListener("keydown", onKeyDown);
       };
     }
-  }, [moveTaskUp, moveTaskDown, removeTask, toggleTaskStatus]);
+  }, [moveTaskUp, moveTaskDown, removeTask, task.id, toggleTaskStatus]);
 
   return (
     <Reorder.Item
